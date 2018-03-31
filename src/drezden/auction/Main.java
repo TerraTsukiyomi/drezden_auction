@@ -1,28 +1,14 @@
 package drezden.auction;
 import java.util.concurrent.*;
+import java.util.Random;
 
 public class Main {
 
-    int threadsCount = 3;
-    void masterMain() throws InterruptedException {
 
-        CountDownLatch startLatch = new CountDownLatch( 1 );
-        CountDownLatch readyLatch = new CountDownLatch( threadsCount );
-
-        for( int i = 0; i < threadsCount; ++i )
-            // создание и активация потоков
-            new Thread( new Worker( startLatch, readyLatch ) ).start( );
-        doSomething();
-
-        startLatch.countDown( );
-
-        doSomethingYet();
-
-        readyLatch.await( );
-    }
     // …
-
     public static void main(String[] args) {
-        // write your code here
+        final Random random = new Random();
+        String.valueOf(random.nextInt());
+        System.out.print(random);
     }
 }
