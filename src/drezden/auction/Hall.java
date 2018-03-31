@@ -1,5 +1,5 @@
 package drezden.auction;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
 
 public class Hall implements Runnable {
     private final CountDownLatch starting;

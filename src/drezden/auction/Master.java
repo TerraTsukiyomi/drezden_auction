@@ -1,5 +1,4 @@
 package drezden.auction;
-
 import java.util.concurrent.CountDownLatch;
 
 public class Master {
