@@ -24,7 +24,10 @@ target/
 *.exe
 *.o
 *.so
+
+# Are added by me #
 *.idea
+*.gitignore
 
 # Packages #
 ############
