@@ -1,4 +1,5 @@
 package drezden.auction;
+import java.util.concurrent.*;
 
 public class Worker implements Runnable {
     private final CountDownLatch starting;
@@ -13,18 +14,15 @@ public class Worker implements Runnable {
         try
         {
             starting.await();
-            // ожидание разрешения работать
             doWork();
-
-            // выполнение работы
             finishing.countDown();
-            // отметка, что поток завершился
         }
         catch ( InterruptedException ex )
         {
 
         } return;
-    } void doWork()
+    }
+    void doWork()
     {
        // ...
     }
