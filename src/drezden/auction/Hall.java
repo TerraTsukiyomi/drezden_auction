@@ -18,11 +18,11 @@ public class Hall implements Runnable {
             starting.await();
             doWork();
             finishing.countDown();
-        }
+}
         catch ( InterruptedException ex ){ } return;
-    }
+                }
 
-    void doWork()
+                void doWork()
     {
         // ...
     }
