@@ -1,5 +1,5 @@
 package drezden.auction;
-
+import java.util.concurrent.CountDownLatch;
 import java.util.Random;
 
 public class Main {

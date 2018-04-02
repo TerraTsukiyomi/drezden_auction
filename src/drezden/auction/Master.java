@@ -13,10 +13,10 @@ public class Master {
             // создание и активация потоков
             new Thread( new Hall( startLatch, readyLatch ) ).start( );
 
-        startLatch.countDown( );
+        startLatch.countDown();
 
 
 
-        readyLatch.await( );
+        readyLatch.await();
     }
 }

@@ -9,9 +9,15 @@ public class SemaphoreLot {
     static class auctionThread extends Thread {
 
         String name = "";
+        private final CountDownLatch starting;
+        private final CountDownLatch finishing;
 
-        auctionThread(String name) { // опредедяем имя потоков
+
+        auctionThread(String name, CountDownLatch starting, CountDownLatch finishing ) { // опредедяем имя потоков
             this.name = name;
+            this.starting = starting;
+            this.finishing = finishing;
+
         }
 
             public void run() {
@@ -34,7 +40,6 @@ public class SemaphoreLot {
 
                 try {
 
-                    int capital = 3000;
                     for (int i = 1; i <= 5; i++) {
 
                         System.out.println(name + " : делает ставку " + i
@@ -45,12 +50,15 @@ public class SemaphoreLot {
                         Thread.sleep(4000);
 
                     }
+                    starting.await();
+                    finishing.countDown();
 
                 } finally {
 
                     // функция release() вызывается после успешно выполеной ф-и acquire()
                     System.out.println(name + " : сделал ставку.");
                     semaphore.release(); //освобождает доступ к ресурсу
+
                     System.out.println(name + " : делать ставки сейчас могут еще: "
                             + semaphore.availablePermits() + " чел.");
 
