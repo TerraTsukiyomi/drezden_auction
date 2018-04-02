@@ -1,10 +1,10 @@
 package drezden.auction;
-
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
 public class SemaphoreLot {
-    // максимально могут иметь доступ 4 человека
-    static Semaphore semaphore = new Semaphore(4); //Ограничиваем доступ только 4-ьом патокам
+
+    static Semaphore semaphore = new Semaphore(1); //Ограничиваем доступ до 1 человек
 
     static class auctionThread extends Thread {
 
@@ -14,37 +14,45 @@ public class SemaphoreLot {
             this.name = name;
         }
 
-        public void run() {
+            public void run() {
 
             try {
 
-                System.out.println(name + " : фиксация блокировки");
-                System.out.println(name + " : сейчас свободных доступов: "
-                        + semaphore.availablePermits());
+                System.out.println(name + " : пришел на аукуион;");
+                System.out.println(name + " : может сделать ставку. (Сейчас свободно "
+                        + semaphore.availablePermits() + " место.)");
 
                 semaphore.acquire(); // даёт разрешение
-                System.out.println(name + " : получил разрешение!");
+                System.out.println(name + " : будет делать ставку!");
+
+                System.out.println("________________________________________________________________________________________________________________________________");
+                System.out.println("\tЛот №" + "id" + ".\t\t  \t\t\t|\t\t\t " + name + "\t\t\t|\t\t\t " + name + " \t\t\t|\t\t\t "+ name + " \t\t\t|");
+                System.out.println("________________________________|_______________________________|_______________________________|_______________________________|");
+                System.out.println("\t\t" + "price" + " грн.\t\t\t\t|\t\t\t xxx    \t\t\t|\t\t\t xxx    \t\t\t|\t\t\t xxx     \t\t\t|");
+                System.out.println("________________________________|_______________________________|_______________________________|_______________________________|");
+
 
                 try {
 
+                    int capital = 3000;
                     for (int i = 1; i <= 5; i++) {
 
-                        System.out.println(name + " : выполняет операцию " + i
-                                + ", доступный Семафор может разрешить сейчас дуступ: "
-                                + semaphore.availablePermits());
+                        System.out.println(name + " : делает ставку " + i
+                                + ", делать ставки сейчас могут еще: "
+                                + semaphore.availablePermits() + " чел.");
 
-                        // sleep 3 second
-                        Thread.sleep(3000);
+                        // sleep 4 second
+                        Thread.sleep(4000);
 
                     }
 
                 } finally {
 
                     // функция release() вызывается после успешно выполеной ф-и acquire()
-                    System.out.println(name + " : освободил доступ.");
+                    System.out.println(name + " : сделал ставку.");
                     semaphore.release(); //освобождает доступ к ресурсу
-                    System.out.println(name + " : сейчас свободных доступов: "
-                            + semaphore.availablePermits());
+                    System.out.println(name + " : делать ставки сейчас могут еще: "
+                            + semaphore.availablePermits() + " чел.");
 
                 }
 

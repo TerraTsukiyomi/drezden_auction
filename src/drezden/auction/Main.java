@@ -1,10 +1,32 @@
 package drezden.auction;
 
-public class Main {
-    public static void main(String[] args) {
+import java.util.Random;
 
-        System.out.println("Всего свободных доступов : "
-                + SemaphoreLot.semaphore.availablePermits());
+public class Main {
+
+    public static void main(String[] args) {
+        int[] itemlot = new int[2];
+
+        int minimum = 10;
+        int maximum = 90;
+
+
+        Random rn = new Random();
+        int n = maximum - minimum + 1;
+        int i = rn.nextInt() % n;
+        int item = minimum + i;
+        if (item < 0)
+            item = -item;
+
+        itemlot[0] = item;
+        itemlot[1] = item + (item * 710);
+        int id = itemlot[0];
+        int price = itemlot[1];
+
+
+        System.out.println("\n------------------------------------------------ АУКЦИОН ОТКРЫТ! ------------------------------------------------");
+        System.out.println("\t\t\t\t\t\t\t\t(Кол-во людей, которые могут делать ставки: "
+                + SemaphoreLot.semaphore.availablePermits() + ")\n");
 
         SemaphoreLot.auctionThread t1 = new SemaphoreLot.auctionThread("Гость 1");
         t1.start();
@@ -15,31 +37,11 @@ public class Main {
         SemaphoreLot.auctionThread t3 = new SemaphoreLot.auctionThread("Гость 3");
         t3.start();
 
-        SemaphoreLot.auctionThread t4 = new SemaphoreLot.auctionThread("Гость 4");
-        t4.start();
-
-        SemaphoreLot.auctionThread t5 = new SemaphoreLot.auctionThread("Гость 5");
-        t5.start();
-
-        SemaphoreLot.auctionThread t6 = new SemaphoreLot.auctionThread("Гость 6");
-        t6.start();
-
-
-
-
-        Item lot = new Item();
-
-        int item[] = new int[2];
-        item[0] = lot.Item();
-        item[1] = lot.Item() + (lot.Item()*710);
-
-        System.out.println("АУКЦИОН ОТКРЫТ!\n");
-        System.out.println("________________________________________________________________");
-        System.out.println("Лот №" + item[0] + ".\t  \t|\t Гость 1\t|\t Гость 2\t|\t Гость 3" + " \t|");
-        System.out.println("________________|_______________|_______________|_______________|");
-        System.out.println("\t" + item[1] + " грн.\t|\t xxx    \t|\t xxx    \t|\t xxx     \t|");
-        System.out.println("________________|_______________|_______________|_______________|");
-
+        System.out.println("________________________________");
+        System.out.println("\tЛот " + id + ".  \t\t\t\t\t|");
+        System.out.println("________________________________|");
+        System.out.println("\t\t" + price + " грн.\t\t\t\t|");
+        System.out.println("________________________________|\n");
 
 
     }

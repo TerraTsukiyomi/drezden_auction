@@ -5,17 +5,33 @@ import java.util.Random;
 public class Item {
 
     // Point 1. Генерируем id лота
-    public static int Item() {
+    static class Lot {
+
+        int[] itemlot = new int[2];
+
+        Lot(int[] itemlot) {
+            this.itemlot = itemlot;
+        }
+
         int minimum = 10;
         int maximum = 90;
-        Random rn = new Random();
-        int n = maximum - minimum + 1;
-        int i = rn.nextInt() % n;
-        int lot = minimum + i;
 
-        if (lot < 0)
-            lot = -lot;
+        public void Random() {
 
-        return lot;
+            Random rn = new Random();
+            int n = maximum - minimum + 1;
+            int i = rn.nextInt() % n;
+            int item = minimum + i;
+            if (item < 0)
+                item = -item;
+
+            itemlot[0] = item;
+            itemlot[1] = item + (item * 710);
+            int id = itemlot[0];
+            int price = itemlot[1];
+
+        }
     }
 }
+
+
